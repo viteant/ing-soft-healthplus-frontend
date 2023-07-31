@@ -1,0 +1,17 @@
+// app global css in SCSS form
+
+.container-card {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
