@@ -12,16 +12,16 @@ const dialog: Ref = ref<boolean>(false)
 const table: Ref = ref(null)
 const currentDetails: Ref = ref<IDoctor | null>(null)
 const cast_around: Ref = ref(null)
-const $q = useQuasar()
+const $qua = useQuasar()
 
 const openEditMenu = (data: IDoctor) => {
-  currentData.value = data
+  currentDetails.value = data
   dialog.value = true
 }
 
 const onDelete = ({id}: IDoctor) => {
   if (!!id) {
-    $q.dialog({
+    $qua.dialog({
       title: 'Confirm',
       message: '¿Deseas eliminar este registro?',
       class: 'bg-negative',
@@ -29,24 +29,24 @@ const onDelete = ({id}: IDoctor) => {
       cancel: true,
       persistent: true
     }).onOk(() => {
-      $q.loading.show()
+      $qua.loading.show()
       destroyData(id)
         .then(response => {
           syncDatabaseData()
-          $q.notify({
+          $qua.notify({
             message: response.data.message,
             type: 'positive',
             position: 'top'
           })
         })
         .catch(error => {
-          $q.notify({
+          $qua.notify({
             message: error.response.data?.error ?? error.response.data?.message,
             type: 'positive',
             position: 'top'
           })
         })
-        .finally(() => $q.loading.hide())
+        .finally(() => $qua.loading.hide())
     })
   }
 
@@ -74,7 +74,7 @@ syncDatabaseData()
         :rows = "doctors"
         :columns = "columns"
         row-key = "name"
-        :filter = "search"
+        :filter = "cast_around"
       >
         <template v-slot:top>
           <q-toolbar class = "q-px-none">
@@ -83,7 +83,7 @@ syncDatabaseData()
             </q-toolbar-title>
           </q-toolbar>
           <q-toolbar class = "q-px-none">
-            <q-input label = "Buscar" v-model = "search" style = "width: 300px"/>
+            <q-input label = "Buscar" v-model = "cast_around" style = "width: 300px"/>
             <q-space/>
             <q-btn outline color = "positive" @click = "dialog=true">
               <q-icon size = "xs" name = "fas fa-plus" class = "q-pr-sm"/>
@@ -119,7 +119,7 @@ syncDatabaseData()
   </q-page>
 
   <q-dialog v-model = "dialog" @hide = "syncDatabaseData()">
-    <DoctorForm :data = "currentData"
+    <DoctorForm :data = "currentDetails"
                 @on-ok = "onSaveDialog"
                 @on-cancel = "onCloseDialog"/>
   </q-dialog>
