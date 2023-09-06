@@ -9,7 +9,7 @@ import {useQuasar} from 'quasar';
 const {syncDatabaseData, destroyData, doctors} = useDoctor()
 
 const dialogo: Ref = ref<boolean>(false)
-const table: Ref = ref(null)
+const tables: Ref = ref(null)
 const currentData: Ref = ref<IDoctor | null>(null)
 const search: Ref = ref(null)
 const $q = useQuasar()
@@ -67,8 +67,8 @@ syncDatabaseData()
 <template>
   <q-page class = "q-pa-lg">
     <q-card class = "container-card">
-      <q-table
-        ref = "table"
+      <q-tables
+        ref = "tables"
         flat
         title = "Doctores"
         :rows = "doctors"
@@ -79,7 +79,7 @@ syncDatabaseData()
         <template v-slot:top>
           <q-toolbar class = "q-px-none">
             <q-toolbar-title>
-              {{ table?.title }}
+              {{ tables?.title }}
             </q-toolbar-title>
           </q-toolbar>
           <q-toolbar class = "q-px-none">
@@ -114,7 +114,7 @@ syncDatabaseData()
             </q-btn>
           </q-td>
         </template>
-      </q-table>
+      </q-tables>
     </q-card>
   </q-page>
 
