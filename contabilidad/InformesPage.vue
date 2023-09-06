@@ -11,7 +11,7 @@ const {syncDatabaseData, destroyData, doctors} = useDoctor()
 const dialog: Ref = ref<boolean>(false)
 const table: Ref = ref(null)
 const currentDetails: Ref = ref<IDoctor | null>(null)
-const search: Ref = ref(null)
+const cast_around: Ref = ref(null)
 const $q = useQuasar()
 
 const openEditMenu = (data: IDoctor) => {
