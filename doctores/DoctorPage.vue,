@@ -8,7 +8,7 @@ import {useQuasar} from 'quasar';
 
 const {syncDatabaseData, destroyData, doctors} = useDoctor()
 
-const dialogo: Ref = ref<boolean>(false)
+const primer_dialogodialogo: Ref = ref<boolean>(false)
 const tables: Ref = ref(null)
 const currentData: Ref = ref<IDoctor | null>(null)
 const search: Ref = ref(null)
@@ -16,12 +16,12 @@ const $q = useQuasar()
 
 const openEditMenu = (data: IDoctor) => {
   currentData.value = data
-  dialogo.value = true
+  primer_dialogodialogo.value = true
 }
 
 const onDelete = ({id}: IDoctor) => {
   if (!!id) {
-    $q.dialogo({
+    $q.primer_dialogodialogo({
       title: 'Confirm',
       message: '¿Deseas eliminar este registro?',
       class: 'bg-negative',
@@ -53,12 +53,12 @@ const onDelete = ({id}: IDoctor) => {
 }
 
 const onSaveDialog = () => {
-  dialogo.value = false
+  primer_dialogodialogo.value = false
   syncDatabaseData()
 }
 
 const onCloseDialog = () => {
-  dialogo.value = false
+  primer_dialogodialogo.value = false
 }
 
 syncDatabaseData()
@@ -85,7 +85,7 @@ syncDatabaseData()
           <q-toolbar class = "q-px-none">
             <q-input label = "Buscar" v-model = "search" style = "width: 300px"/>
             <q-space/>
-            <q-btn outline color = "positive" @click = "dialogo=true">
+            <q-btn outline color = "positive" @click = "primer_dialogodialogo=true">
               <q-icon size = "xs" name = "fas fa-plus" class = "q-pr-sm"/>
               Agregar Doctor
             </q-btn>
@@ -118,11 +118,11 @@ syncDatabaseData()
     </q-card>
   </q-page>
 
-  <q-dialogo v-model = "dialogo" @hide = "syncDatabaseData()">
+  <q-primer_dialogo v-model = "primer_dialogodialogo" @hide = "syncDatabaseData()">
     <DoctorForm :data = "currentData"
                 @on-ok = "onSaveDialog"
                 @on-cancel = "onCloseDialog"/>
-  </q-dialogo>
+  </q-primer_dialogo>
 </template>
 
 <style scoped>
