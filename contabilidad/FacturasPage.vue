@@ -83,7 +83,7 @@ syncDatabaseData()
             </q-toolbar-title>
           </q-toolbar>
           <q-toolbar class = "q-px-none">
-            <q-input label = "Buscar" v-model = "search" style = "width: 300px"/>
+            <q-input label = "Buscar" v-model = "search" style = "width: 200px"/>
             <q-space/>
             <q-btn outline color = "positive" @click = "dialog=true">
               <q-icon size = "xs" name = "fas fa-plus" class = "q-pr-sm"/>
