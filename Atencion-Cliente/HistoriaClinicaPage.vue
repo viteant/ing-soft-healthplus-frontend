@@ -14,7 +14,7 @@ const currentData: Ref = ref<IDoctor | null>(null)
 const search: Ref = ref(null)
 const $q = useQuasar()
 
-const openEditMenu = (data: IDoctor) => {
+const openEditMen = (data: IDoctor) => {
   currentData.value = data
   dialog.value = true
 }
