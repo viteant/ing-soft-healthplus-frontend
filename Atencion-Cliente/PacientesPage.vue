@@ -14,7 +14,7 @@ const currentData: Ref = ref<IDoctor | null>(null)
 const search: Ref = ref(null)
 const $q = useQuasar()
 
-const openEditMenu = (data: IDoctor) => {
+const openEditMen = (data: IDoctor) => {
   currentData.value = data
   dialog.value = true
 }
@@ -97,7 +97,7 @@ syncDatabaseData()
             <q-btn icon = "fas fa-ellipsis-vertical" flat size = "xs">
               <q-menu>
                 <q-list dense style = "min-width: 150px">
-                  <q-item clickable v-close-popup @click = "openEditMenu(props.row)">
+                  <q-item clickable v-close-popup @click = "openEditMen(props.row)">
                     <q-item-section avatar>
                       <q-icon name = "fas fa-edit" size = "15px"/>
                     </q-item-section>
