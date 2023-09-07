@@ -23,7 +23,7 @@ const onDelete = ({id}: IDoctor) => {
   if (!!id) {
     $q.dialog({
       title: 'Confirm',
-      message: '¿Deseas eliminar este registro?',
+      message: '¿Deseas eliminar este registro del medico?',
       class: 'bg-negative',
       dark: true,
       cancel: true,
