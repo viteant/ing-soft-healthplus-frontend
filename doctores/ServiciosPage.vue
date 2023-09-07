@@ -10,12 +10,12 @@ const {syncDatabaseData, destroyData, doctors} = useDoctor()
 
 const dialog: Ref = ref<boolean>(false)
 const table: Ref = ref(null)
-const currentData: Ref = ref<IDoctor | null>(null)
+const datosActuales: Ref = ref<IDoctor | null>(null)
 const buscar: Ref = ref(null)
 const $q = useQuasar()
 
 const openEditMenu = (data: IDoctor) => {
-  currentData.value = data
+  datosActuales.value = data
   dialog.value = true
 }
 
@@ -119,7 +119,7 @@ syncDatabaseData()
   </q-page>
 
   <q-dialog v-model = "dialog" @hide = "syncDatabaseData()">
-    <DoctorForm :data = "currentData"
+    <DoctorForm :data = "datosActuales"
                 @on-ok = "onSaveDialog"
                 @on-cancel = "onCloseDialog"/>
   </q-dialog>
