@@ -99,7 +99,7 @@ syncDatabaseData()
                 <q-list dense style = "min-width: 150px">
                   <q-item clickable v-close-popup @click = "openEditMenu(props.row)">
                     <q-item-section avatar>
-                      <q-icon name = "fas fa-edit" size = "15px"/>
+                      <q-icon name = "fas fa-edit" size = "20px"/>
                     </q-item-section>
                     <q-item-section>Editar</q-item-section>
                   </q-item>
