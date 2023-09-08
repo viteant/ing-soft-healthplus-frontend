@@ -1,15 +1,20 @@
 <script setup lang = "ts">
-import {ref, Ref} from 'vue';
+import {PropType, ref, Ref} from 'vue';
 import {IAttentionSchedule} from 'src/interfaces/IAttentionSchedule';
 import {useQuasar} from 'quasar';
 import useAttentionSchedule from 'src/hooks/useAttentionSchedule';
 
 const emit = defineEmits(['onCancel', 'onOk'])
+const props = defineProps({
+  data: {type: Object as PropType<IAttentionSchedule>, required: false}
+})
+
+
 const $q = useQuasar()
 const {storeData} = useAttentionSchedule()
-const form:Ref = ref(null)
+const form: Ref = ref(null)
 
-const attention_schedule: Ref<IAttentionSchedule> = ref({})
+const attention_schedule: Ref<IAttentionSchedule> = ref(props.data ?? {})
 const days = [
   {value: '1', label: 'Lunes'},
   {value: '2', label: 'Martes'},
@@ -88,11 +93,11 @@ const okClick = () => {
     </q-card-section>
     <q-separator/>
     <q-card-actions>
-      <q-btn flat color = "negative" @click="cancelClick">
+      <q-btn flat color = "negative" @click = "cancelClick">
         Cancelar
       </q-btn>
       <q-space/>
-      <q-btn flat color = "positive" @click="okClick">
+      <q-btn flat color = "positive" @click = "okClick">
         Aceptar
       </q-btn>
     </q-card-actions>

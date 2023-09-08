@@ -14,7 +14,7 @@ const storeData = async (attention_schedule: IAttentionSchedule) => {
 const syncDatabaseData = async () => await api.get('doctor/attention-schedule')
   .then(response => attention_schedule.value = response.data)
 
-const destroyData = async (attention_schedule_id: number) => await api.delete(`doctor/attention-schedule /${attention_schedule_id}`)
+const destroyData = async (attention_schedule_id: number) => await api.delete(`doctor/attention-schedule/${attention_schedule_id}`)
 
 
 export default () => ({

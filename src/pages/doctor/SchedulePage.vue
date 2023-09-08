@@ -3,15 +3,62 @@ import {ref, Ref} from 'vue';
 import AttentionScheduleForm from 'components/forms/AttentionScheduleForm.vue';
 import useAttentionSchedule from 'src/hooks/useAttentionSchedule';
 import columns from 'src/data/AttentionScheduleTable';
+import {IAttentionSchedule} from 'src/interfaces/IAttentionSchedule';
+import {useQuasar} from 'quasar';
 
-const {syncDatabaseData, attention_schedule, days} = useAttentionSchedule()
+const {syncDatabaseData, attention_schedule, days, destroyData} = useAttentionSchedule()
 const dialog: Ref = ref(false)
 const table: Ref = ref(null)
 const search: Ref = ref(null)
+const currentData: Ref<IAttentionSchedule | null> = ref(null)
+
+const $q = useQuasar()
 
 
 syncDatabaseData()
 
+const updateDataTable = () => {
+  dialog.value = false
+  syncDatabaseData()
+}
+
+const openEditMenu = (data: IAttentionSchedule) => {
+  currentData.value = data
+  dialog.value = true
+}
+
+const onDelete = ({id}: IAttentionSchedule) => {
+  if (!!id) {
+    $q.dialog({
+      title: 'Confirm',
+      message: '¿Deseas eliminar este registro?',
+      class: 'bg-negative',
+      dark: true,
+      cancel: true,
+      persistent: true
+    }).onOk(() => {
+      $q.loading.show()
+      destroyData(id)
+        .then(response => {
+          syncDatabaseData()
+          $q.notify({
+            message: response.data.message,
+            type: 'positive',
+            position: 'top'
+          })
+        })
+        .catch(error => {
+          $q.notify({
+            message: error.response.data?.error ?? error.response.data?.message,
+            type: 'positive',
+            position: 'top'
+          })
+        })
+        .finally(() => $q.loading.hide())
+    })
+  }
+
+}
 
 </script>
 
@@ -21,7 +68,7 @@ syncDatabaseData()
       <q-table
         ref = "table"
         flat
-        title = "Doctores"
+        title = "Horario de Atención"
         :rows = "attention_schedule"
         :columns = "columns"
         row-key = "name"
@@ -38,17 +85,18 @@ syncDatabaseData()
             <q-space/>
             <q-btn outline color = "positive" @click = "dialog=true">
               <q-icon size = "xs" name = "fas fa-plus" class = "q-pr-sm"/>
-              Agregar Doctor
+              Agregar nuevo horario
             </q-btn>
           </q-toolbar>
         </template>
 
         <template v-slot:body-cell-days = "{row}">
-         <q-td>
-           <q-chip color="secondary" text-color="white" size="md" v-for="day in row.days?.map(el => days[el])" v-bind:key="day">
-             {{day}}
-           </q-chip>
-         </q-td>
+          <q-td>
+            <q-chip color = "secondary" text-color = "white" size = "md" v-for = "day in row.days?.map(el => days[el])"
+                    v-bind:key = "day">
+              {{ day }}
+            </q-chip>
+          </q-td>
         </template>
 
         <template v-slot:body-cell-actions = "props">
@@ -78,7 +126,7 @@ syncDatabaseData()
   </q-page>
 
   <q-dialog v-model = "dialog" style = "max-width: 700px">
-    <AttentionScheduleForm/>
+    <AttentionScheduleForm :data = "currentData" @on-cancel = "dialog=false" @on-ok = "updateDataTable"/>
   </q-dialog>
 </template>
 
