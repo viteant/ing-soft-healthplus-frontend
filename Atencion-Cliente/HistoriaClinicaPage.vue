@@ -19,7 +19,7 @@ const openEditMen = (data: IDoctor) => {
   dialog.value = true
 }
 
-const onDelete = ({id}: IDoctor) => {
+const onDelet = ({id}: IDoctor) => {
   if (!!id) {
     $q.dialog({
       title: 'Confirm',
