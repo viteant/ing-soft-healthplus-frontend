@@ -9,7 +9,7 @@ import {useQuasar} from 'quasar';
 const {syncDatabaseData, destroyData, doctors} = useDoctor()
 
 const dialog_1: Ref = ref<boolean>(false)
-const table: Ref = ref(null)
+const d_table: Ref = ref(null)
 const currentD: Ref = ref<IDoctor | null>(null)
 const search: Ref = ref(null)
 const $q = useQuasar()
@@ -68,7 +68,7 @@ syncDatabaseData()
   <q-page class = "q-pa-lg">
     <q-card class = "container-card">
       <q-table
-        ref = "table"
+        ref = "d_table"
         flat
         title = "Doctores"
         :rows = "doctors"
