@@ -70,7 +70,7 @@ syncDatabaseData()
       <q-table
         ref = "table"
         flat
-        title = "Doctores"
+        title = "Doctores (Medicos)"
         :rows = "doctors"
         :columns = "columns"
         row-key = "name"
