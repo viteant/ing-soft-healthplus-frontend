@@ -8,7 +8,18 @@ const routes: RouteRecordRaw[] = [
       requiresAuth: true,
     },
     children: [
-      {path: '', component: () => import('pages/DoctorPage.vue')}
+      {path: '', component: () => import('pages/doctor/DoctorPage.vue')},
+      {path: '/patients', component: () => import('pages/PatientPage.vue')},
+      {path: '/administratives', component: () => import('pages/AdministrativeUserPage.vue')},
+      {
+        path: '/doctor',
+        children: [
+          {path: '', component: () => import('pages/doctor/DoctorPage.vue')},
+          {path: 'schedule', component: () => import('pages/doctor/SchedulePage.vue')},
+
+        ]
+      },
+
     ],
   },
   {

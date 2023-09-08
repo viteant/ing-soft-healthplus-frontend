@@ -4,4 +4,5 @@ export interface IAttentionSchedule {
   days?: Array<string>,
   start?: string,
   end?: string,
+  interval?: number,
 }

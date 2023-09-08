@@ -26,6 +26,7 @@ export const useAuthStore = defineStore('authStore', () => {
         setToken(token.value)
       })
       .catch(error => {
+        console.log(error.response)
         onTokenError(error.response.data.error ?? error.response.data.message)
       })
   };
